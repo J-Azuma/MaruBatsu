@@ -10,12 +10,21 @@
     {{/*$.Turnは手番}}
     <div>[{{$.Turn}}の手番]</div><br>
     <form action="/game" method= "post">
+        {{/*手番はinputタグのhiddenで送信*/}}
+        <input type="hidden" name="turn" value="{{$.Turn}}">
         <table>
          {{/*$.Boardは盤面のデータ([3][3]string型)*/}}
          {{range $row, $rows := $.Board}}
             <tr>
              {{range $col, $cell := &rows}}
-             <td><button></button></td>
+             <td>
+              {{if $cell}} {{/*["〇"]または["×"]の場合*/}}
+               {{$cell}}
+               <input type="hidden" name="c{{$row}{$col}}" value="{{$cell}}"">
+              {{else}} {{/* [""]の場合*/}}
+               <button name="{{$row}} {{$col}}" value="{{$.Turn}}"></button>  
+              {{end}}
+             </td>
              {{end}}
             </tr>
             {{end}}
