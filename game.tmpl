@@ -8,7 +8,15 @@
 </head>
 <body>
     {{/*$.Turnは手番}}
-    <div>[{{$.Turn}}の手番]</div><br>
+    <div>
+        {{if $.Win}}
+         [{{$.Winner}}の勝ち]
+        {{else if $.Draw}}
+         [引き分け]
+        {{else}}
+        [{{$.Turn}}の手番]
+        {{end}}
+    </div><br>
     <form action="/game" method= "post">
         {{/*手番はinputタグのhiddenで送信*/}}
         <input type="hidden" name="turn" value="{{$.Turn}}">
